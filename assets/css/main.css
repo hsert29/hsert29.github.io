@@ -3912,3 +3912,7 @@ input, select, textarea {
 .image:hover {
 	/* -webkit-transform: scale(1.5,2); */
 }
+
+.spacer {
+	overflow: auto;
+}
