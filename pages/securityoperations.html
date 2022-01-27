@@ -7,7 +7,7 @@
 <html>
 
 <head>
-    <title>Web Security</title>
+    <title>Security Operations and Incident Response</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="../assets/css/main.css" />
@@ -37,27 +37,31 @@
         <section id="main" class="wrapper">
             <div class="inner">
                 <div class="spacer">
-                    <h1 class="major">Web Security</h1>
-                    <span class="image right"><img src="../images/websecurity.jpg" alt="" /></span>
-                    <p>Using OWASP Juice Shop on TryHackMe platform, I will be exploiting common web application vulnerabilities like
-                        SQL Injection, broken authentication, sensitive data exposure, cross site scripting and more.
+                    <h1 class="major">Security Operations and Incident Response</h1>
+                    <span class="image right"><img src="../images/sec_timeline.jpg" alt="" /></span>
+                    <p> Often referred to as the “blue team”, the SOC is responsible for
+                        defending our systems and our networks. They will proactively monitor activity, triage alerts against published
+                        threat reports, and will provide incident response in the case of a breach. Following the events listed on...
                     </p>
                 </div>
 
                 <ul class="alt spacer">
                     <li>
-                        <h2> SQL Injection </h2>
-                        <p> 
-                            <!-- <span class="image left"><img id="test" src="../images/ssh.jpg" alt=""></span> -->
+                        <h2> Reconnaissance </h2>
+                        <span class="image right"><img src="../images/src_ip.jpg" alt="" /></span>
+                        <p>
+                            Following the questions listed out on the THY room, my first task was to find the IP address that was scanning our web server.
+                            After running <code>index="botsv1" imreallynotbatman sourcetype="stream:http" | stats count by src_ip</code> I was able to list 
+                            IP addresses that had scanned our web server and figure out which of these adresses had more traffic to our server. 
                         </p>
                     </li>
                     <li>
-                        <h2> Authentication </h2>
+                        <h2> Exploitation </h2>
                     </li>
                     <li>
                         <h2> 3 </h2>
                     </li>
-                    
+
                 </ul>
             </div>
         </section>
