@@ -41,22 +41,68 @@
                     <span class="image right"><img src="../images/sec_timeline.jpg" alt="" /></span>
                     <p> Often referred to as the “blue team”, the SOC is responsible for
                         defending our systems and our networks. They will proactively monitor activity, triage alerts against published
-                        threat reports, and will provide incident response in the case of a breach. Following the events listed on...
+                        threat reports, and will provide incident response in the case of a breach. Using Splunk, I will investigate a scenario
+                        where attackers have gained access to our web server and defaced our website. I will find out who the attacker was and 
+                        explore ways to prevent further attacks.
                     </p>
                 </div>
 
                 <ul class="alt spacer">
                     <li>
                         <h2> Reconnaissance </h2>
-                        <span class="image right"><img src="../images/src_ip.jpg" alt="" /></span>
-                        <p>
+                        <h4>What IP is scanning our web server?</h4>
+                        <p style="overflow: auto;">
+                            <span class="image left"><img src="../images/src_ip.jpg" alt="" /></span>
                             Following the questions listed out on the THY room, my first task was to find the IP address that was scanning our web server.
                             After running <code>index="botsv1" imreallynotbatman sourcetype="stream:http" | stats count by src_ip</code> I was able to list 
                             IP addresses that had scanned our web server and figure out which of these adresses had more traffic to our server. 
                         </p>
+                        
+                        <h4>What web scanner scanned the server?</h4>
+                        <p style="overflow: auto;">
+                            <span class="image left"><img src="../images/src_header.jpg" alt="" /></span>
+                            Looking at the <code>index="botsv1" imreallynotbatman sourcetype="stream:http" | stats count by src_headers</code> I found out what web scanner they've used to scan our server which was <b>Acunetix</b>.
+                        </p>
+                        <!-- <p style="overflow: auto;">
+                            <span class="image left"><img src="../images/src_ip.jpg" alt="" /></span>
+                            Running <code>index="botsv1" src=40.80.148.42 sourcetype="stream:http"
+                            | stats count by dest</code> I found out the IP address of our web server.
+                        </p> -->
+                        <h4>What content management system is imreallynotbatman.com using</h4>
+                        <p style="overflow: auto;">
+                            <span class="image left"><img src="../images/contentmgm.jpg" alt="" /></span>
+                            Running <code>index="botsv1" src=40.80.148.42 sourcetype="stream:http" dest="192.168.250.70"
+                            | stats count by uri
+                            | sort - count</code> I found out what content management system they were using which was <b>Joomla</b>.
+                        </p>
                     </li>
                     <li>
                         <h2> Exploitation </h2>
+                        <h4>What address is performing the brute-forcing attack against our website?</h4>
+                        <p style="overflow: auto;">
+                            <span class="image left"><img src="../images/bruteforcesrc.jpg" alt="" /></span>
+                            Running <code>index="botsv1" src=40.80.148.42 sourcetype="stream:http" dest="192.168.250.70"
+                            | stats count by src_ip</code> I found out what address was performing the brute-force attack against our website. We can deduce
+                            by the number of attempts made by <b>23.22.63.114</b> that this is the IP address responsible for the attacks.
+                        </p>
+                        
+                        <h4>What was the first password attempted in the attack?</h4>
+                        <p style="overflow: auto;">
+                            <span class="image left"><img src="../images/bruteforcefirstpswd.jpg" alt="" /></span>
+                            In order to find the first attempted password I had to sort the data by time, running <code>index="botsv1" sourcetype="stream:http" 
+                            dest="192.168.250.70" http_method=POST form_data=*username*passwd* | table _time, form_data | sort by _time </code>. We can see that
+                            the first attempted password is <b>12345678</b>.
+                        </p>
+
+                        <h4>What was the correct password for admin access to the content management system running imreallynotbatman.com?</h4>
+                        <p style="overflow: auto;">
+                            <span class="image left"><img src="../images/bruteforcecorrectpswd.jpg" alt="" /></span>
+                            There are couple of ways to find the correct password that the brute-force attack found. We know that brute-force tools like
+                            <b>hydra</b> re-enter the correct password twice in order to verify that it works. I could've written a query that finds the password
+                            that was attempted twice, however, I chose a different option. Logic dictates that the correct password would also be the final attempted
+                            password. Therefore, running the previous command in descending order, <code>sort by _time desc</code>, would list the last and the correct 
+                            password which is <b>batman</b>. 
+                        </p>
                     </li>
                     <li>
                         <h2> 3 </h2>
