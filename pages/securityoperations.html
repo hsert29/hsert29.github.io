@@ -53,15 +53,20 @@
                         <h4>What IP is scanning our web server?</h4>
                         <p style="overflow: auto;">
                             <span class="image left"><img src="../images/src_ip.jpg" alt="" /></span>
+                            <!-- <span class="image left"><a href="../images/src_ip.jpg" target="_blank"><img src="../images/src_ip.jpg" alt="" /></a></span> -->
                             Following the questions listed out on the THY room, my first task was to find the IP address that was scanning our web server.
                             After running <code>index="botsv1" imreallynotbatman sourcetype="stream:http" | stats count by src_ip</code> I was able to list 
-                            IP addresses that had scanned our web server and figure out which of these adresses had more traffic to our server. 
+                            IP addresses that had scanned our web server and figure out which of these adresses had more traffic to our server. Once we 
+                            have narrowed our search down to <code>steam:http</code> we can see what source of IP addresses have interacted with our website. We 
+                            can see two IP addresses and one of them is associated with 95% of the traffic. From this we can assume that <code>40.80.148.42</code>
+                            is the IP address that is scanning our web server for potential vulnerabilities.
                         </p>
                         
                         <h4>What web scanner scanned the server?</h4>
                         <p style="overflow: auto;">
                             <span class="image left"><img src="../images/src_header.jpg" alt="" /></span>
-                            Looking at the <code>index="botsv1" imreallynotbatman sourcetype="stream:http" | stats count by src_headers</code> I found out what web scanner they've used to scan our server which was <b>Acunetix</b>.
+                            Looking at the <code>src_headers</code> I found out what web 
+                            scanner they've used to scan our server which was <b>Acunetix</b>.
                         </p>
                         <!-- <p style="overflow: auto;">
                             <span class="image left"><img src="../images/src_ip.jpg" alt="" /></span>
@@ -71,9 +76,10 @@
                         <h4>What content management system is imreallynotbatman.com using</h4>
                         <p style="overflow: auto;">
                             <span class="image left"><img src="../images/contentmgm.jpg" alt="" /></span>
+                            Since we now know the source and destination, I now want to learn what content management system they are using.
                             Running <code>index="botsv1" src=40.80.148.42 sourcetype="stream:http" dest="192.168.250.70"
                             | stats count by uri
-                            | sort - count</code> I found out what content management system they were using which was <b>Joomla</b>.
+                            | sort - count</code> I found out that they were using <b>Joomla</b>.
                         </p>
                     </li>
                     <li>
@@ -103,9 +109,38 @@
                             password. Therefore, running the previous command in descending order, <code>sort by _time desc</code>, would list the last and the correct 
                             password which is <b>batman</b>. 
                         </p>
+
+                        <h4>How many seconds elapsed between the time the brute force password scan identified the correct password and the
+                        compromised login & How many unique password were attempted in the brute force attempt?</h4>
+                        <p style="overflow: auto;">
+                            <span class="image left"><img src="../images/elapsed.jpg" alt="" /></span>
+                            We now need to understand how long it took for the brute-force attack to find the correct password and when did the attacker gain entry
+                            into our system. The time we find out will also be a good indication of how strong the password was and we could use this in a report to
+                            demonstrate that weaker passwords are easily penetrated.
+                            <br>
+                            <br>
+                            We know that the password is "batman". Based on this, we can look for login events that have used this password. We can visualise this by
+                            using <code>_time</code> and <code>src</code>. Then using <code>transaction</code> command, can calculate the difference between these times
+                            using the duration field. We can see that it has taken <b>92.17</b> seconds.
+                            <br>
+                            <br>
+                            <span class="image left"><img src="../images/uniquepass.jpg" alt="" /></span>
+                            Another useful information that can help us determine how secure the password is by looking at how many passwords were attempted by the brute
+                            force to find the correct one. In this case its <b>412</b>.
+                        </p>
                     </li>
                     <li>
-                        <h2> 3 </h2>
+                        <h2> Installation </h2>
+                        <h4>What is the name of the executable uploaded by P01s0n1vy?</h4>
+                        <p style="overflow: auto;">
+                            <span class="image left"><img src="../images/exe.jpg" alt="" /></span>
+                            A clue in the question indicates that the name of the file was an executable. We could take that literally and search for .exe if we want.
+                            If we look at the data sources we have, Suricata can be an appealing place to start because it generates events based on rules pertaining to files it sees.
+                            Suricata is an intrusion detection system. 
+                            <br>
+                            Using <code>sourcetype=suricata</code> and <code>.exe</code> parameters, <code>index=botsv1 sourcetype=suricata dest_ip=192.168.250.70 .exe</code>
+                            we can see the name of the executable which is <b>3791.exe</b>.
+                        </p>
                     </li>
 
                 </ul>
