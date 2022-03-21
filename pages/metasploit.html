@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<!--
+	Hyperspace by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+    <title>Metasploit</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <noscript>
+        <link rel="stylesheet" href="../assets/css/noscript.css" />
+    </noscript>
+</head>
+
+<body class="is-preload">
+
+    <!-- Header -->
+    <header id="header">
+        <a href="../index.html" class="title">Home</a>
+        <!-- <nav>
+					<ul>
+						<li><a href="../index.html">Home</a></li>
+						<li><a href="generic.html" class="active">Generic</a></li>
+						<li><a href="../elements.html">Elements</a></li>
+					</ul>
+				</nav> -->
+    </header>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Main -->
+        <section id="main" class="wrapper">
+            <div class="inner">
+                <div class="spacer">
+                    <h1 class="major">Metasploit</h1>
+                    <span class="image right"><img src="../images/metasploit.jpg" alt="" /></span>
+                    <p>The Metasploit framework is a very powerful tool which can be used by cybercriminals as well as ethical hackers to probe
+                    systematic vulnerabilities on networks and servers. </p>
+                    <p>
+                    With Metasploit, the pen testing team can use ready-made or custom code and introduce it into a network to probe for
+                    weak spots. As another flavor of threat hunting, once flaws are identified and documented, the information can be used
+                    to address systemic weaknesses and prioritize solutions.
+                    </p>
+                </div>
+
+                <ul class="alt spacer">
+                    <li>
+                        <h2> Commands </h2>
+                        <p style="overflow: auto;">
+                            <span class="image right"><img id="test" src="../images/Metasploit-help.jpg" alt=""></span>
+                            When Metasploit has booted and the msfconsole is available we can type 'help' to get an overview of the Metasploit core
+                            and backend commands with a description:
+                        </p>
+                    </li>
+                    <li>
+                        <h2> 'use' and back 'commands' </h2>
+                        <p style="overflow: auto;">
+                            <span class="image right"><img id="test" src="../images/usebackexit.jpg" alt=""></span>
+                            The <code>use</code> command in Metasploit is used to activate a particular module and changes the context of the msfconsole to that
+                            particular module. The exploit name will be mentioned in red on the command line as following:
+                        </p>
+                        <p style="overflow: auto;">
+                            If we want to leave the exploit context and switch back to the msfconsole we need to use the <code>back</code> command. The back
+                            command will take us back to the msfconsole in the general context.
+                        </p>
+                    </li>
+                    <li>
+                        <h2> 'info' command </h2>
+                        <p style="overflow: auto;">
+                            <!-- <span class="image right"><img id="test" src="../images/Metasploit-help.jpg" alt=""></span> -->
+                        When an exploit is selected with the use command we can retrieve information like the name, platform, author, available
+                        targets and a lot more by using the info command.
+                        </p>
+                    </li>
+                    <li>
+                        <h2> 'show targets' command </h2>
+                        <p style="overflow: auto;">
+                            <span class="image right"><img id="test" src="../images/showtargets.jpg" alt=""></span>
+                        The <code>show targets</code> command will return a list of operating systems which are vulnerable to the selected exploit. When we
+                        run the command we get the following output for the adobe_flash_shader_drawing_fill exploit:
+                        </p>
+
+                        <p>
+                        This exploit targets both Windows and Linux operating systems. Note that we can use the info command to get additional
+                        info about this exploit and targets. To set a target we can use the command set followed by the target ID:
+                        </p>
+                    </li>
+                    <li>
+                        <h2> 'set target []' command </h2>
+                        <p style="overflow: auto;">
+                            <span class="image right"><img id="test" src="../images/settarget.jpg" alt=""></span>
+                        By setting the target the list of payloads will be reduced a lot because only payloads will be shown which are
+                        compatible with the target:
+                        </p>
+                    </li>
+                    <li>
+                        <h2> 'show evasion' command </h2>
+                        <p style="overflow: auto;">
+                            <span class="image right"><img id="test" src="../images/evasion.jpg" alt=""></span>
+                        The <code>show evasion</code> command returns a list of available evasion techniques.
+                        </p>
+                    </li>
+
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer" class="wrapper alt">
+        <div class="inner">
+            <ul class="menu">
+                <li>&copy; Huseyin Sert. All rights reserved.</li>
+                <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/jquery.scrollex.min.js"></script>
+    <script src="../assets/js/jquery.scrolly.min.js"></script>
+    <script src="../assets/js/browser.min.js"></script>
+    <script src="../assets/js/breakpoints.min.js"></script>
+    <script src="../assets/js/util.js"></script>
+    <script src="../assets/js/main.js"></script>
+
+    <!-- <script>
+				$(function () {
+					$(".pentest").load("../components/pentest-comp.html .pentest");
+					$(".test").load("../components/pentest-comp.html .test");
+				});
+			</script> -->
+
+</body>
+
+</html>

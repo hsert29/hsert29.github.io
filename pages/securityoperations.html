@@ -52,7 +52,7 @@
                         <h2> Reconnaissance </h2>
                         <h4>What IP is scanning our web server?</h4>
                         <p style="overflow: auto;">
-                            <span class="image left"><img src="../images/src_ip.jpg" alt="" /></span>
+                            <span class="image right"><img src="../images/src_ip.jpg" alt="" /></span>
                             <!-- <span class="image left"><a href="../images/src_ip.jpg" target="_blank"><img src="../images/src_ip.jpg" alt="" /></a></span> -->
                             Following the questions listed out on the THY room, my first task was to find the IP address that was scanning our web server.
                             After running <code>index="botsv1" imreallynotbatman sourcetype="stream:http" | stats count by src_ip</code> I was able to list 
@@ -64,7 +64,7 @@
                         
                         <h4>What web scanner scanned the server?</h4>
                         <p style="overflow: auto;">
-                            <span class="image left"><img src="../images/src_header.jpg" alt="" /></span>
+                            <span class="image right"><img src="../images/src_header.jpg" alt="" /></span>
                             Looking at the <code>src_headers</code> I found out what web 
                             scanner they've used to scan our server which was <b>Acunetix</b>.
                         </p>
@@ -75,7 +75,7 @@
                         </p> -->
                         <h4>What content management system is imreallynotbatman.com using</h4>
                         <p style="overflow: auto;">
-                            <span class="image left"><img src="../images/contentmgm.jpg" alt="" /></span>
+                            <span class="image right"><img src="../images/contentmgm.jpg" alt="" /></span>
                             Since we now know the source and destination, I now want to learn what content management system they are using.
                             Running <code>index="botsv1" src=40.80.148.42 sourcetype="stream:http" dest="192.168.250.70"
                             | stats count by uri
@@ -86,7 +86,7 @@
                         <h2> Exploitation </h2>
                         <h4>What address is performing the brute-forcing attack against our website?</h4>
                         <p style="overflow: auto;">
-                            <span class="image left"><img src="../images/bruteforcesrc.jpg" alt="" /></span>
+                            <span class="image right"><img src="../images/bruteforcesrc.jpg" alt="" /></span>
                             Running <code>index="botsv1" src=40.80.148.42 sourcetype="stream:http" dest="192.168.250.70"
                             | stats count by src_ip</code> I found out what address was performing the brute-force attack against our website. We can deduce
                             by the number of attempts made by <b>23.22.63.114</b> that this is the IP address responsible for the attacks.
@@ -94,7 +94,7 @@
                         
                         <h4>What was the first password attempted in the attack?</h4>
                         <p style="overflow: auto;">
-                            <span class="image left"><img src="../images/bruteforcefirstpswd.jpg" alt="" /></span>
+                            <span class="image right"><img src="../images/bruteforcefirstpswd.jpg" alt="" /></span>
                             In order to find the first attempted password I had to sort the data by time, running <code>index="botsv1" sourcetype="stream:http" 
                             dest="192.168.250.70" http_method=POST form_data=*username*passwd* | table _time, form_data | sort by _time </code>. We can see that
                             the first attempted password is <b>12345678</b>.
@@ -102,7 +102,7 @@
 
                         <h4>What was the correct password for admin access to the content management system running imreallynotbatman.com?</h4>
                         <p style="overflow: auto;">
-                            <span class="image left"><img src="../images/bruteforcecorrectpswd.jpg" alt="" /></span>
+                            <span class="image right"><img src="../images/bruteforcecorrectpswd.jpg" alt="" /></span>
                             There are couple of ways to find the correct password that the brute-force attack found. We know that brute-force tools like
                             <b>hydra</b> re-enter the correct password twice in order to verify that it works. I could've written a query that finds the password
                             that was attempted twice, however, I chose a different option. Logic dictates that the correct password would also be the final attempted
@@ -113,7 +113,7 @@
                         <h4>How many seconds elapsed between the time the brute force password scan identified the correct password and the
                         compromised login & How many unique password were attempted in the brute force attempt?</h4>
                         <p style="overflow: auto;">
-                            <span class="image left"><img src="../images/elapsed.jpg" alt="" /></span>
+                            <span class="image right"><img src="../images/elapsed.jpg" alt="" /></span>
                             We now need to understand how long it took for the brute-force attack to find the correct password and when did the attacker gain entry
                             into our system. The time we find out will also be a good indication of how strong the password was and we could use this in a report to
                             demonstrate that weaker passwords are easily penetrated.
@@ -124,7 +124,7 @@
                             using the duration field. We can see that it has taken <b>92.17</b> seconds.
                             <br>
                             <br>
-                            <span class="image left"><img src="../images/uniquepass.jpg" alt="" /></span>
+                            <span class="image right"><img src="../images/uniquepass.jpg" alt="" /></span>
                             Another useful information that can help us determine how secure the password is by looking at how many passwords were attempted by the brute
                             force to find the correct one. In this case its <b>412</b>.
                         </p>
@@ -133,7 +133,7 @@
                         <h2> Installation </h2>
                         <h4>What is the name of the executable uploaded by P01s0n1vy?</h4>
                         <p style="overflow: auto;">
-                            <span class="image left"><img src="../images/exe.jpg" alt="" /></span>
+                            <span class="image right"><img src="../images/exe.jpg" alt="" /></span>
                             A clue in the question indicates that the name of the file was an executable. We could take that literally and search for .exe if we want.
                             If we look at the data sources we have, Suricata can be an appealing place to start because it generates events based on rules pertaining to files it sees.
                             Suricata is an intrusion detection system. 
